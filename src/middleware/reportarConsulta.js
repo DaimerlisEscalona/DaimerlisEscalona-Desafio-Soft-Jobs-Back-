@@ -13,9 +13,7 @@ const reportarConsulta = async (req, res, next) => {
   console.log(
     `
     Hoy ${localDatetime}
-    Se ha recibido una consulta en la ruta ${url} con los parámetros: 
-    `,
-    parametros
+    Se ha recibido una consulta en la ruta ${url}`
   );
   next();
 };

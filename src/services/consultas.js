@@ -24,15 +24,13 @@ const registrarUsuario = async (usuario, res) => {
     }
 }
 
-const mostrarUsuarios = async (id) => {
+const mostrarUsuarios = async (email) => {
     try {
-        const consulta = "SELECT * FROM usuarios WHERE id = $1";
-        const values = [id];
+        const consulta = "SELECT * FROM usuarios WHERE email = $1";
+        const values = [email];
         const { rows } = await pool.query(consulta, values);
-        if (rows[0].id === 0) {
-            res.status(500).send("No es posible obtener la información solicitada")
-        }
-        return rows;
+       // console.log("entre" + rows)
+        return rows[0];
     } catch (error) {
         res.status(500).send(error)
     }
