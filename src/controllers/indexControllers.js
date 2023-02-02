@@ -33,7 +33,7 @@ const showUser = async (req, res) => {
         const { email } = jwt.decode(token)
         const data = await mostrarUsuarios(email)
         res.send(data)
-        //console.log("token de showUser:"+token)
+        console.log("token de showUser:"+token)
     } catch (error) {
         res.status(500).send("No es posible obtener la información solicitada");
     }
