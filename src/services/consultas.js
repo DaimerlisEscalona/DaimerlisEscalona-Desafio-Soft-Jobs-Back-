@@ -42,7 +42,7 @@ const mostrarUsuarios = async (email) => {
         console.log("entre" + rows[0])
         const json = Object.assign({}, rows)
         console.log(json)
-        return rows[0];
+        return json;
     } catch (error) {
         res.status(500).send(error)
     }
