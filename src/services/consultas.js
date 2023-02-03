@@ -33,6 +33,7 @@ const registrarUsuario = async (usuario, res) => {
 
 const mostrarUsuarios = async (email) => {
     try {
+        
         const consulta = "SELECT * FROM usuarios WHERE email = $1";
         const values = [email];
         const { rows } = await pool.query(consulta, values);
