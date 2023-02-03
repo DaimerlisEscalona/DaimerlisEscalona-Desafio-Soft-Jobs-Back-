@@ -9,7 +9,7 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body
         await verificarCredenciales(email, password)
-        const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 600 })
+        const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 60 })
         res.send(token)
     } catch (error) {
         res.status(error.code || 500).send(error)
@@ -33,7 +33,6 @@ const showUser = async (req, res) => {
         const { email } = jwt.decode(token)
         const data = await mostrarUsuarios(email)
         res.send(data)
-        console.log("token de showUser:"+token)
     } catch (error) {
         res.status(500).send("No es posible obtener la información solicitada");
     }

@@ -4,7 +4,7 @@ const { reportarConsulta } = require("../middleware/reportarConsulta");
 const indexControllers = require ("../controllers/indexControllers");
 
 router.post("/login", reportarConsulta, indexControllers.login)
-router.post("/usuarios", reportarConsulta, indexControllers.userRegistration)
+router.post("/usuarios", indexControllers.userRegistration)
 router.get("/usuarios", reportarConsulta, indexControllers.showUser)
 
 module.exports = router;
