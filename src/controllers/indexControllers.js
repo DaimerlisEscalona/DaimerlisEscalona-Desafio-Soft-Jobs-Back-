@@ -10,7 +10,7 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body
         //console.log("email" + password)
-        await verificarCredenciales(email, password)
+        const user = await verificarCredenciales(email, password)
         const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 60 })
         res.send(token)
         console.log("email login" + password)

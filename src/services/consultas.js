@@ -5,10 +5,10 @@ const verificarCredenciales = async (email, password) => {
     const values = [email]
     const consulta = "SELECT * FROM usuarios WHERE email = $1"
     const { rows: [usuario], rowCount } = await pool.query(consulta, values)
-    console.log("password" + password)
+    //console.log("password" + password)
     //console.log("passwordEsCorrecta" + passwordEncriptada)
     const { password: passwordEncriptada } = usuario
-    console.log("ENTRE")
+    // console.log("ENTRE")
  
     const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada)
 
@@ -39,7 +39,9 @@ const mostrarUsuarios = async (email) => {
         const consulta = "SELECT * FROM usuarios WHERE email = $1";
         const values = [email];
         const { rows } = await pool.query(consulta, values);
-        //console.log("entre" + rows)
+        console.log("entre" + rows[0])
+        const json = Object.assign({}, rows)
+        console.log(json)
         return rows[0];
     } catch (error) {
         res.status(500).send(error)
