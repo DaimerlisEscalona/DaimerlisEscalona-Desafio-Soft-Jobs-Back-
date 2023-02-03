@@ -39,9 +39,7 @@ const mostrarUsuarios = async (email) => {
         const consulta = "SELECT * FROM usuarios WHERE email = $1";
         const values = [email];
         const { rows } = await pool.query(consulta, values);
-        console.log("entre" + rows[0])
-        const json = Object.assign({}, rows)
-        console.log(json)
+        const json = Object.assign({},rows[0])
         return json;
     } catch (error) {
         res.status(500).send(error)
