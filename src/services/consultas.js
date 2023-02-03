@@ -11,14 +11,21 @@ const verificarCredenciales = async (email, password) => {
 
 const registrarUsuario = async (usuario, res) => {
     //const salt = 
+    
     const { email, password, rol, lenguage } = usuario
+    
     if (![email, password, rol, lenguage].includes("")) {
+        
         const passwordEncriptada = bcrypt.hashSync(password);
+        console.log("registrar usuarios")
         password = passwordEncriptada
+        
         const values = [email, passwordEncriptada, rol, lenguage]
+        
         const consulta = "INSERT INTO usuarios values (DEFAULT, $1, $2, $3, $4)"
         await pool.query(consulta, values)
         res.send("Usuario creado con éxito")
+        
     } else {
         res.status(500).send("Debe ingresar todos los datos")
     }
