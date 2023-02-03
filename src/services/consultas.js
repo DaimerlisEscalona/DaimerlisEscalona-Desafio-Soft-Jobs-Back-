@@ -2,10 +2,20 @@ const pool = require("../dataBase/db");
 const bcrypt = require('bcryptjs')
 
 const verificarCredenciales = async (email, password) => {
-    const values = [email, password]
-    const consulta = "SELECT * FROM usuarios WHERE email = $1 AND password = $2"
-    const { rowCount } = await pool.query(consulta, values)
-    if (!rowCount) throw { code: 404, message: "No se encontró ningún usuario con estas credenciales" }
+    const values = [email]
+    const consulta = "SELECT * FROM usuarios WHERE email = $1"
+    const { rows: [usuario], rowCount } = await pool.query(consulta, values)
+    console.log("password" + password)
+    //console.log("passwordEsCorrecta" + passwordEncriptada)
+    const { password: passwordEncriptada } = usuario
+    console.log("ENTRE")
+ 
+    const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada)
+
+    //const { rowCount } = await pool.query(consulta, values)
+    
+    if (!passwordEsCorrecta || !rowCount)
+    throw { code: 401, message: "Email o contraseña incorrecta" }
 
 }
 
@@ -14,6 +24,7 @@ const registrarUsuario = async (usuario, res) => {
     const { email, password, rol, lenguage } = usuario
     if (![email, password, rol, lenguage].includes("")) {
         const passwordEncriptada = bcrypt.hashSync(password);
+        password = passwordEncriptada
         const values = [email, passwordEncriptada, rol, lenguage]
         const consulta = "INSERT INTO usuarios values (DEFAULT, $1, $2, $3, $4)"
         await pool.query(consulta, values)
@@ -28,7 +39,7 @@ const mostrarUsuarios = async (email) => {
         const consulta = "SELECT * FROM usuarios WHERE email = $1";
         const values = [email];
         const { rows } = await pool.query(consulta, values);
-        console.log("entre" + rows)
+        //console.log("entre" + rows)
         return rows[0];
     } catch (error) {
         res.status(500).send(error)

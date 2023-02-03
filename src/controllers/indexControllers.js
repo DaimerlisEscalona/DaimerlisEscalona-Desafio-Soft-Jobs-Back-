@@ -2,15 +2,18 @@ const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv");
 const { verificarCredenciales, registrarUsuario, mostrarUsuarios } = require("../services/consultas");
 dotenv.config({ path: './src/.env' });
+const bcrypt = require('bcryptjs')
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const login = async (req, res) => {
     try {
         const { email, password } = req.body
+        //console.log("email" + password)
         await verificarCredenciales(email, password)
         const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 60 })
         res.send(token)
+        console.log("email login" + password)
     } catch (error) {
         res.status(error.code || 500).send(error)
     }
