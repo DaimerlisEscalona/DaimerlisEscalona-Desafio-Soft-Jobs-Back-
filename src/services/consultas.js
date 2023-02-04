@@ -5,22 +5,13 @@ const verificarCredenciales = async (email, password) => {
     const values = [email]
     const consulta = "SELECT * FROM usuarios WHERE email = $1"
     const { rows: [usuario], rowCount } = await pool.query(consulta, values)
-    //console.log("password" + password)
-    //console.log("passwordEsCorrecta" + passwordEncriptada)
     const { password: passwordEncriptada } = usuario
-    // console.log("ENTRE")
- 
     const passwordEsCorrecta = bcrypt.compareSync(password, passwordEncriptada)
-
-    //const { rowCount } = await pool.query(consulta, values)
-    
     if (!passwordEsCorrecta || !rowCount)
-    throw { code: 401, message: "Email o contraseña incorrecta" }
-
+        throw { code: 401, message: "Email o contraseña incorrecta" }
 }
 
 const registrarUsuario = async (usuario, res) => {
-    //const salt = 
     const { email, password, rol, lenguage } = usuario
     if (![email, password, rol, lenguage].includes("")) {
         const passwordEncriptada = bcrypt.hashSync(password);
@@ -39,7 +30,7 @@ const mostrarUsuarios = async (email) => {
         const consulta = "SELECT * FROM usuarios WHERE email = $1";
         const values = [email];
         const { rows } = await pool.query(consulta, values);
-        const json = Object.assign({},rows[0])
+        const json = Object.assign({}, rows[0])
         return json;
     } catch (error) {
         res.status(500).send(error)

@@ -3,21 +3,13 @@ const dotenv = require("dotenv");
 dotenv.config({path:'./src/.env'});
 
 
-const pool = new Pool({
-  // host: process.env.HOST || '',
-  // user: process.env.USER || '',
-  // password: process.env.PASSWORD || '',
-  // database: process.env.DATABASE || '',
-  // port: process.env.PGPORT || '',
-  // allowExitOnIdle: true,
-  
+const pool = new Pool({  
   PGDATABASE: process.env.PGDATABASE || '',
   PGHOST: process.env.PGHOST || '',
   PGPASSWORD: process.env.PGPASSWORD || '',
   PGPORT: process.env.PGPORT || '',
   PGUSER: process.env.PGUSER || '',
   allowExitOnIdle: true,
-
 });
 
 module.exports = pool;
