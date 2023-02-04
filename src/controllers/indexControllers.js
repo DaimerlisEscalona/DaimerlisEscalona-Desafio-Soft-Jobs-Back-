@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const login = async (req, res) => {
     try {
         const { email, password } = req.body
-        //console.log("email" + password)
+        console.log(req.body)
         const user = await verificarCredenciales(email, password)
         const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 60 })
         res.send(token)
@@ -22,6 +22,7 @@ const login = async (req, res) => {
 const userRegistration = async (req, res) => {
     try {
         const usuario = req.body
+        console.log(req.body)
         await registrarUsuario(usuario, res)
     } catch (error) {
         res.status(error);

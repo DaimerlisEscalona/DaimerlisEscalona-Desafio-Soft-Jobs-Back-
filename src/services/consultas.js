@@ -24,7 +24,7 @@ const registrarUsuario = async (usuario, res) => {
     const { email, password, rol, lenguage } = usuario
     if (![email, password, rol, lenguage].includes("")) {
         const passwordEncriptada = bcrypt.hashSync(password);
-        password = passwordEncriptada
+        // password = passwordEncriptada
         const values = [email, passwordEncriptada, rol, lenguage]
         const consulta = "INSERT INTO usuarios values (DEFAULT, $1, $2, $3, $4)"
         await pool.query(consulta, values)
