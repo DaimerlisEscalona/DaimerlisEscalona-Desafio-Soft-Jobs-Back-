@@ -2,8 +2,6 @@ const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv");
 const { verificarCredenciales, registrarUsuario, mostrarUsuarios } = require("../services/consultas");
 dotenv.config({ path: './src/.env' });
-const bcrypt = require('bcryptjs')
-
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const login = async (req, res) => {
